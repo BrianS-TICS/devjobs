@@ -1,4 +1,4 @@
-<form action="" class="md:w-1/2" wire:submit.prevent='crearVacante'>
+<form class="md:w-1/2" wire:submit.prevent='crearVacante'>
 
     <!-- titulo -->
     <div class="mt-4">

@@ -35,19 +35,11 @@ return new class extends Migration
     public function down()
     {
         Schema::table('vacantes', function (Blueprint $table) {
-            $table->dropForeign(['salario_id']);
-            $table->dropForeign(['categoria_id']);
-            $table->dropForeign(['user_id']);
+            $table->dropForeign('vacantes_categoria_id_foreign');
+            $table->dropForeign('vacantes_salario_id_foreign');
+            $table->dropForeign('vacantes_user_id_foreign');
 
-            $table->dropColumn('titulo');
-            $table->dropColumn('salario_id');
-            $table->dropColumn('categoria_id');
-            $table->dropColumn('empresa');
-            $table->dropColumn('ultimo_dia');
-            $table->dropColumn('descripcion');
-            $table->dropColumn('imagen');
-            $table->dropColumn('publicado');
-            $table->dropColumn('user_id');
+            $table->dropColumn(['titulo', 'salario_id', 'categoria_id', 'empresa', 'ultimo_dia', 'descripcion', 'imagen', 'publicado', 'user_id']);
         });
     }
 };
