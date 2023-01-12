@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacante;
 use Illuminate\Http\Request;
 
 class VacanteController extends Controller
@@ -54,9 +55,12 @@ class VacanteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Vacante $vacante)
     {
-        //
+        // Especificando un tipo de valor en los parametros laravel asocia el id a un modelo por lo que podemos usar directamente la instancia con el mismo id
+        return view('vacantes.edit', [
+            'vacante' => $vacante
+        ]);
     }
 
     /**
