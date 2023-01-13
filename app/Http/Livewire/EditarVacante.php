@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 
 class EditarVacante extends Component
 {
+    public $vacante_id;
 
     public $titulo;
     public $salario;
@@ -19,6 +20,7 @@ class EditarVacante extends Component
     public $ultimo_dia;
     public $descripcion;
     public $imagen;
+    public $imagen_nueva;
 
     protected $rules = [
         'titulo' => 'required|string',
@@ -27,13 +29,14 @@ class EditarVacante extends Component
         'empresa' => 'required',
         'ultimo_dia' => 'required',
         'descripcion' => 'required|string',
-        'imagen' => 'required|image|max:1024',
+        'imagen_nueva' => 'nullable|image|max:1024',
     ];
 
     use WithFileUploads;
 
     public function mount(Vacante $vacante)
     {
+        $this->vacante_id = $vacante->id;
         $this->titulo = $vacante->titulo;
         $this->salario = $vacante->salario_id;
         $this->categoria = $vacante->categoria_id;
@@ -63,26 +66,25 @@ class EditarVacante extends Component
     {
         $datos = $this->validate();
 
-        // Almacenar vacante
-        $imagen = $this->imagen->store('public/vacantes');
-        $datos['imagen'] = str_replace('public/vacantes/', '', $imagen);
+        if($this->imagen_nueva){
+            $imagen = $this->imagen_nueva->store('public/vacantes');
+            $datos['imagen'] = str_replace('public/vacantes/', '', $imagen);
+        }
 
-        //dd($nombre_imagen);
+        // * Encontrar vacante
+        $vacante = Vacante::find($this->vacante_id);
 
-        // Crear vacante
-        Vacante::create([
-            'titulo' => $datos['titulo'],
-            'salario_id' => $datos['salario'],
-            'categoria_id' => $datos['categoria'],
-            'empresa' => $datos['empresa'],
-            'ultimo_dia' => $datos['ultimo_dia'],
-            'descripcion' => $datos['descripcion'],
-            'imagen' => $datos['imagen'],
-            'user_id' => auth()->user()->id,
-        ]);
+        $vacante->titulo = $datos['titulo'];
+        $vacante->salario_id = $datos['salario'];
+        $vacante->categoria_id = $datos['categoria'];
+        $vacante->empresa = $datos['empresa'];
+        $vacante->ultimo_dia = $datos['ultimo_dia'];
+        $vacante->descripcion = $datos['descripcion'];
+        $vacante->imagen = $datos['imagen'] ?? $vacante->imagen;
+        $vacante->save();
 
         // Crear mensaje
-        session()->flash('mensaje', 'La vacante fue publicada correctamente');
+        session()->flash('mensaje', 'La vacante fue actualizada correctamente');
 
         // Redireccionar
         return redirect()->route('vacantes.index');

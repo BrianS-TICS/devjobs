@@ -83,27 +83,28 @@
     </div>
 
 
+
+    <!-- Imagen -->
+    <div class="mt-4">
+        <x-input-label for="imagen" :value="__('Imagen nueva')" />
+
+        <x-text-input id="imagen_nueva" class="block mt-1 w-full" type="file" wire:model="imagen_nueva" accept="image/*" />
+
+        <div class="my-5 w-80 mx-auto" >
+            @if ($imagen_nueva)
+                <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="">
+            @endif
+        </div>
+
+        @error('imagen_nueva')
+        <livewire:mostrar-alerta :message="$message" />
+        @enderror
+    </div>
+
     <div class="m-4">
         <x-input-label :value="__('Imagen actual')" />
         <img src="{{ asset('storage/vacantes/' . $imagen) }}" alt="Imagen actual de vacante">
     </div>
-
-    <!-- Imagen -->
-    {{-- <div class="mt-4">
-        <x-input-label for="imagen" :value="__('Imagen')" />
-
-        <x-text-input id="imagen" class="block mt-1 w-full" type="file" wire:model="imagen" accept="image/*" />
-
-        <div class="my-5 w-80 mx-auto" >
-            @if ($imagen)
-                <img src="{{ $imagen->temporaryUrl() }}" alt="">
-            @endif
-        </div>
-
-        @error('imagen')
-            <livewire:mostrar-alerta :message="$message" />
-        @enderror
-    </div> --}}
 
     <x-primary-button class="mt-4 w-full justify-center">
         {{ __('Guardar cambios') }}
