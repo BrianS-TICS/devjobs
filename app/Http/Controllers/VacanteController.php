@@ -28,25 +28,16 @@ class VacanteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Vacante $vacante)
     {
-        //
+        return view('vacantes.show', [
+            'vacante' => $vacante
+        ]);
     }
 
     /**
@@ -58,31 +49,12 @@ class VacanteController extends Controller
     public function edit(Vacante $vacante)
     {
         // Especificando un tipo de valor en los parametros laravel asocia el id a un modelo por lo que podemos usar directamente la instancia con el mismo id
+
+        $this->authorize('update', $vacante);
+
         return view('vacantes.edit', [
             'vacante' => $vacante
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
