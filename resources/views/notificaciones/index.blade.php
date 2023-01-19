@@ -11,23 +11,28 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="text-2xl font-bold text-center mt-5">Mis notificaciones</h1>
                     <div class="md:flex md:justify-center p-5">
-                        @forelse ($notificaciones as $notificacion)
-                            <div class="p-5 border border-gray-200 md:flex md:justify-between w-full lg:items-center">
-                                <div>
-                                    <p>Tienes un nuevo candidato en
-                                        <span class="font-bold"> {{ $notificacion->data['nombre_vacante'] }}</span>
-                                    </p>
-                                    <p>Hace
-                                        <span class="font-bold"> {{ $notificacion->created_at->diffForHumans() }}</span>
-                                    </p>
+                        <div class="divide-y divide-gray-200 w-full">
+                            @forelse ($notificaciones as $notificacion)
+                                <div class="p-5 md:flex md:justify-between w-full lg:items-center">
+                                    <div>
+                                        <p>Tienes un nuevo candidato en
+                                            <span class="font-bold"> {{ $notificacion->data['nombre_vacante'] }}</span>
+                                        </p>
+                                        <p>Hace
+                                            <span class="font-bold">
+                                                {{ $notificacion->created_at->diffForHumans() }}</span>
+                                        </p>
+                                    </div>
+                                    <div class="mt-5 md:mt-0">
+                                        <a class="bg-teal-500 hover:bg-teal-400 rounded-xl uppercase font-bold text-white p-3"
+                                            href="{{ route('candidatos.index', $notificacion->data['id_vacante']) }}">Ver
+                                            candidatos</a>
+                                    </div>
                                 </div>
-                                <div class="mt-5 md:mt-0">
-                                    <a class= "bg-teal-500 hover:bg-teal-400 rounded-xl uppercase font-bold text-white p-3" href="#">Ver candidatos</a>
-                                </div>
-                            </div>
-                        @empty
-                            <p class="text-center text-gray-600 p-3">No tienes notificaciones</p>
-                        @endforelse
+                            @empty
+                                <p class="text-center text-gray-600 p-3">No tienes notificaciones</p>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
