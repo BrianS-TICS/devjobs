@@ -2,7 +2,7 @@
     <h2 class="text-2xl md:text-4xl text-gray-600 text-center font-extrabold my-5">Buscar y Filtrar Vacantes</h2>
 
     <div class="max-w-7xl mx-auto">
-        <form >
+        <form wire:submit.prevent='leerDatosFormulario'>
             <div class="md:grid md:grid-cols-3 gap-5">
                 <div class="mb-5">
                     <label class="block mb-1 text-sm text-gray-700 uppercase font-bold " for="termino">Término de
@@ -18,7 +18,7 @@
                         <option>--Seleccione--</option>
 
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+                            <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                         @endforeach
                     </select>
                 </div>

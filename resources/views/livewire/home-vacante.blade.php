@@ -12,6 +12,8 @@
                             <a class="text-xl font-extrabold text-gray-600"
                                 href="{{ route('vacantes.show', $vacante->id) }}">{{ $vacante->titulo }}</a>
                             <p class="text-base text-gray-600 mb-1">{{ $vacante->empresa }}</p>
+                            <p class="text-base text-gray-600 mb-1">{{ $vacante->categoria->nombre }}</p>
+                            <p class="text-base text-gray-600 mb-1">{{ $vacante->salario->salario }}</p>
                             <p class="font-bold text-xs text-gray-600">Último dia para postularse
                                 <span class="font-normal">{{ $vacante->ultimo_dia->format('d/m/Y') }}</span></p>
                         </div>
